@@ -198,7 +198,7 @@ const getGenres =  async (req, res) => {
                
         res.status(200).send({ message: "Successfully created" });
       } catch (error) {
-        res.status(404).send(error);
+        next(error)
       } 
     };
 
