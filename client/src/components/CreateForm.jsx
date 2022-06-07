@@ -7,16 +7,19 @@ import s from './styles/createForm.module.css'
 
 function validate(input){
     let errors = {}
+    let urlValid = /^(http(s):)([/|.|\w|\S|-])*\.(?:jpg|gif|png)/;
     if(!input.name || input.name.length > 100 ){
-        errors.name = 'Name required'
-    }else if( !input.description){
-        errors.description = "Description required"
+        errors.name = 'Name required, allow strings and numbers'
+    }else if( !input.description || input.description.length > 250){
+        errors.description = "Description required cannot be longer than 250 characters"
     }else if( !input.released){
         errors.released = "Date released required "    
     }else if( !input.genres){
         errors.genres = "Need some genres"    
     }else if( !input.platforms){
         errors.platforms = "Add at least one Platforms pls"
+    }else if(!input.background_image ||urlValid.test(input.background_image) == false ){
+        errors.background_image = "Pls add an valid extension (jpg, gif, png)"
     }
     return errors;
 }
