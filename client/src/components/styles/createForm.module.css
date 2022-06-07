@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2&display=swap');
+
+.form{
+  display: flex;
+  width: 98%;
+   border: 2px solid hsl(0, 5%, 78%);; 
+   border-radius: 10px;
+    margin: 10px;
+    padding: 20px 10;
+    overflow: hidden;
+}
+.title{
+    color: hsl(0, 5%, 78%);
+    text-align: left;
+    font-family: 'Baloo 2', sans-serif;
+    margin-bottom: 2px;
+    margin-left: 20px;
+}
+.formSection{
+display: grid;
+place-content: start;
+
+width: 60%;
+padding: 1px 5px;
+}
+.creatin{
+    color: wheat;
+    font-family: 'Baloo 2', sans-serif;
+    margin: 10px 20px;
+    width: 80%;
+}
+.creatin img{
+    width: 150px;
+    height: 150px;
+}
+
+.container label{
+    color: wheat;
+    font-family: 'Baloo 2', sans-serif;
+}
+.DescriptionArea{
+    padding:  10px 10px ;
+    background: none;  
+    background-color: rgb(63, 63, 63);
+    padding: 10px 8px;
+    border-radius: 5px;
+    color: hsl(0, 5%, 78%);
+    margin-bottom: 5px;
+    font-family: 'Baloo 2', sans-serif;
+}
+.container input, select{
+    outline: none;
+    border: none;
+    padding:  10px 10px ;
+    background: none;  
+    background-color: rgb(63, 63, 63);
+    padding: 10px 8px;
+    border-radius: 5px;
+    color: hsl(0, 5%, 78%);
+    margin-bottom: 5px;
+    font-family: 'Baloo 2', sans-serif;
+}
+.container select{
+   margin-top: 5px;
+   width: 100px;
+}
+.holder{
+    border: 2px solid hsl(0, 5%, 78%);
+    border-radius: 10px;
+    margin: 25px 0px;
+} 
+.creatin li{
+    list-style: none;
+}
+.btn{
+    display: inline-block;
+    width: 100px;
+    height: 40px;
+    padding: 10px 15px;   
+    text-decoration: none;
+    text-align: center;    
+    color: hsl(0, 5%, 78%);
+    margin-top: 10px;
+    margin-left: 50%;
+    margin-bottom: 10px;
+    background-color: rgb(199, 10, 10);
+    border-radius: 5px;   
+}
+.btnCreate{
+    display: inline-block;
+    width: 160px;
+    height: 40px;
+    padding: 10px 15px;   
+    text-decoration: none;
+    text-align: center;    
+    color: hsl(0, 5%, 78%);
+    margin-top: 10px;
+    margin-left: 50%;
+    margin-bottom: 10px;
+    background-color: rgb(199, 10, 10);
+    border-radius: 5px;
+}
+.error{
+    
+    color: rgb(199, 10, 10);
+}

@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2&display=swap');
+
+.container{
+        display: flex;
+        justify-content: center;
+        background-color:  rgb(63, 63, 63);
+        border-radius: 20px;
+        border: 1px solid hsl(0, 5%, 78%);
+        font-family: 'Baloo 2', sans-serif;
+        border: 1px solid hsl(0, 5%, 78%);
+        margin: 0px 5px;
+}
+.btn{
+    display: inline-block;
+    width: 100px;
+    height: 40px;
+    padding: 10px 15px;   
+    text-decoration: none;
+    text-align: center;    
+    color: hsl(0, 5%, 78%);
+    margin-top: 10px;
+    margin-left: 50%;
+    margin-bottom: 10px;
+    background-color: rgb(199, 10, 10);
+    border-radius: 5px;
+   
+}
+.sectionName{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;    
+    color:  hsl(0, 5%, 78%);
+    width: 70%;
+    height: 100%;     
+    
+}
+
+.sectionName h1{
+    text-align: center;
+    font-size: 36px;
+    margin-top: 5px;
+    padding-top: 10px;
+}
+.description{
+    display: inline-block;
+    font-size: 16px;
+    margin-bottom: 10px;
+    text-align: left;
+    margin: 10px;
+    
+}
+.container img{
+    width: 400px;
+    height: 400px;
+    border: solid 2px hsl(0, 5%, 78%);
+    margin: 30px;
+    border-radius: 5px;
+}
+
+.sectionInfo{   
+    color: hsl(0, 0%, 100%);
+    display: grid;
+    place-content: center;
+    text-align: center;
+    width: 30%; 
+       
+}
+.sectionInfo p{
+   
+    color: hsl(0, 5%, 84%, .5);
+    font-size: 32px;
+    text-shadow: black 1px 1px 1px;    
+}
+
+.sectionInfo h2{
+    margin-top: 10px;
+    text-align: center;
+    margin-bottom: 24px;
+}
+.sectionInfo h2 p{
+    margin-bottom: -20px;
+    
+}
+.sectionInfo h3{
+    font-size: 24px;
+    margin-bottom: 24px;
+}
+.sectionInfo h3 p{
+    margin-bottom: -30px;
+    
+}
+.plataforms{
+      
+    margin-left: 5px;
+    padding-left: 10px;
+    text-align: center;
+}
+.sectionInfo h4{
+    font-size: 24px;           
+}
+.sectionInfo h4 p{
+    margin-bottom: -30px;
+    
+}
+.sectionInfo h5{
+    font-size: 24px;    
+    margin-bottom: 24px;
+}
+.sectionInfo h5 p{
+    margin-bottom: -30px;
+    
+}
+
+.holder{
+    border: 2px solid hsl(0, 5%, 78%);
+    border-radius: 10px;
+    margin: 25px 0px;
+}
+
+
+
+
+/* .container{
+    display: flex; 
+
+}
+
+
+
+.container h4{
+  position: absolute;
+  right: 10px;
+  bottom: 365px;
+}
+
+.container h3{
+    border: 2px solid gold;
+    position: absolute;
+    bottom: 366px;
+    left: 10px;
+}
+.container h2{
+    border: 2px solid rgb(207, 67, 11);
+    position: absolute;
+    bottom: 366px;
+    left: 430px;
+} */

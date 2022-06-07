@@ -1,0 +1,175 @@
+router.get('/videogames', async (req, res, next) => {
+    try {
+        const { name } = req.query;
+        if (name) {
+            const videos_query = await axios.get(`https://api.rawg.io/api/games?key=2bd4fccf120343c687719c3bd9a15540&search=${name}`)
+            let videogamesName = await videos_query.data.results.filter(c => c.name.toLowerCase().includes(name.toLowerCase()))
+            videogamesName.length ?
+            res.status(200).send(videogamesName) :
+            res.status(404).send(" no existe el juego")
+         }  else {
+             let videogamesQuery = await get_All_VideoGames()
+            res.send(videogamesQuery)
+        }
+       
+        
+       
+    } catch (error) {
+        next(error)
+    }
+
+})
+
+router.get('/videogames', async (req, res, next) => {
+    const { name } = req.query;
+    const db_info_query = await get_DB_Info()
+    try {
+
+        const arr = [];
+        if (name) {
+            const videos_query = (await axios.get(`https://api.rawg.io/api/games?key=2bd4fccf120343c687719c3bd9a15540&search=${name}`)).data.results.filter(c => c.name.toLowerCase().includes(name.toLowerCase())).map(c => {
+                return ({
+                    id: c.id,
+                    name: c.name,
+                    img: c.background_image,
+                    genres: c.genres.map(c => [c.name])
+                })
+            })
+            // let videogamesName = await videos_query.data.results.filter(c => c.name.toLowerCase().includes(name.toLowerCase()))     
+            const queryFinal = videos_query.concat(db_info_query) 
+            let queryDeep = queryFinal.flat()      
+            if (queryDeep.length) {
+                
+                    
+                    
+               
+                res.status(200).send(queryDeep)
+               
+            } else {
+                res.status(404).send(" no existe el juego")
+            }
+        } else {
+            let videogamesQuery = await get_All_VideoGames()
+            res.send(videogamesQuery)
+        }
+
+    } catch (error) {
+        next(error)
+    }
+
+})
+
+   const db_info_query = async () =>{
+      return await Videogame.findAll({
+            where: {
+                name:{
+                    [Op.like] : 'name%'
+                } 
+            },
+            include:{
+                model : Genre,
+                attributes: ['name'],
+                through: {
+                    attributes: [],
+                }
+            }
+        })
+    } 
+    // actions
+    import axios from 'axios'
+export const GET_ALL_VIDEOGAMES = 'GET_ALL_VIDEOGAMES'
+export const GET_BY_GENRE = 'GET_BY_GENRE'
+export const FILTER_CREATED = 'FILTER_CREATED'
+export const ORDER_BY_NAME = 'ORDER_BY_NAME'
+export const FILTER_BY_GENRE = 'FILTER_BY_GENRE'
+export const GET_BY_DETAIL = 'GET_BY_DETAIL'
+export const SEARCH_BY_NAME = 'SEARCH_BY_NAME'
+export const CREATE_VIDEOGAME = 'CREATE_VIDEOGAME'
+export const ORDER_BY_RATING = 'ORDER_BY_RATING'
+
+export function get_all_videogames (){
+    return async function (dispatch){
+         await fetch('http://localhost:3001/videogames')
+        .then(response => response.json())
+        .then(res => dispatch({
+            type: GET_ALL_VIDEOGAMES, payload: res
+        }))
+    }
+}
+
+export function get_by_genre (){
+    return async function (dispatch){
+         await fetch('http://localhost:3001/genres')
+        .then(response => response.json())
+        .then(res => dispatch({
+            type: GET_BY_GENRE, payload: res
+        }))
+    }
+}
+
+export function filter_created (payload){
+    return{
+        type: FILTER_CREATED,
+        payload 
+    }
+}
+export function order_name (payload){
+    return{
+        type: ORDER_BY_NAME,
+        payload 
+    }
+}
+export function order_rating (payload){
+    return{
+        type: ORDER_BY_RATING,
+        payload 
+    }
+}
+
+export function filter_genre(payload){
+    return {
+        type: FILTER_BY_GENRE,
+        payload
+    }
+}
+
+
+
+export function get_videgames_detail (id){
+    return async function (dispatch){
+         await fetch(`http://localhost:3001/videogames/${id}`)
+        .then(response => response.json())
+        .then(res => dispatch({
+            type: GET_BY_DETAIL, payload: res
+        }))
+    }
+}
+
+export function search_by_name (name){
+    return async function (dispatch){
+         await fetch(`http://localhost:3001/videogames?name=${name}`)
+        .then(response => response.json())
+        .then(res => dispatch({
+            type:  SEARCH_BY_NAME, payload: res
+        }))
+    }
+}
+
+// export function create_videogame (payload){
+//     return async function (dispatch){
+//       const res =   await fetch(`http://localhost:3001/videogames` ,{
+//              method: 'POST',
+//                  },
+//                  payload
+//                  )
+//         .then(response => response.json())
+//         return res
+//     }
+// }
+
+export function create_videogame(payload){
+    return async function(dispatch){
+        const res = axios.post('http://localhost:3001/videogames', payload)
+        return res
+    }
+}
