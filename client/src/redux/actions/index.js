@@ -12,7 +12,7 @@ export const RESET_DETAIL = 'RESET_DETAIL'
 
 export function get_all_videogames (){
     return async function (dispatch){
-         await axios.get('http://localhost:3001/videogames')
+         await axios.get('/videogames')
         
         .then(res => dispatch({
             type: GET_ALL_VIDEOGAMES, payload: res.data
@@ -22,7 +22,7 @@ export function get_all_videogames (){
 
 export function get_by_genre (){
     return async function (dispatch){
-         await axios.get('http://localhost:3001/genres')
+         await axios.get('/genres')
         
         .then(res => dispatch({
             type: GET_BY_GENRE, payload: res.data
@@ -60,7 +60,7 @@ export function filter_genre(payload){
 
 export function get_videgames_detail (id){
     return async function (dispatch){
-         await axios.get(`http://localhost:3001/videogames/${id}`)
+         await axios.get(`/videogames/${id}`)
         
         .then(res => dispatch({
             type: GET_BY_DETAIL, payload: res.data
@@ -70,7 +70,7 @@ export function get_videgames_detail (id){
 
 export function search_by_name (name){
     return async function (dispatch){
-         await axios.get(`http://localhost:3001/videogames?name=${name}`)
+         await axios.get(`/videogames?name=${name}`)
         
         .then(res => dispatch({
             type:  SEARCH_BY_NAME, payload: res.data
@@ -80,7 +80,7 @@ export function search_by_name (name){
 
 export function create_videogame(payload){
     return async function(dispatch){
-        const res = axios.post('http://localhost:3001/videogames', payload)
+        const res = axios.post('/videogames', payload)
         return res
     }
 }

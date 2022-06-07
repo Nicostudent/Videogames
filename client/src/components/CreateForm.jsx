@@ -18,7 +18,7 @@ function validate(input){
         errors.genres = "Need some genres"    
     }else if( !input.platforms){
         errors.platforms = "Add at least one Platforms pls"
-    }else if(!input.background_image ||urlValid.test(input.background_image) == false ){
+    }else if(!input.background_image || urlValid.test(input.background_image) == false ){
         errors.background_image = "Pls add an valid extension (jpg, gif, png)"
     }
     return errors;
