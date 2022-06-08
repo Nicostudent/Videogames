@@ -4,7 +4,7 @@
 .container{
    background-color:  rgb(36, 36, 36);;
     width: 199px;
-    height: 216px;
+    height: 230px;
     margin: 10px;    
     border-radius: 5px;
     display: grid;   
@@ -37,9 +37,9 @@
 }
 
 .text{
-    margin-top: 8px;
+    margin-top: 4px;
     font-family: 'Special Elite', cursive;
-    color: hsl(0, 5%, 84%);;
+    color: hsl(0, 5%, 84%);
     
 }
 .genres{
@@ -48,6 +48,7 @@
     font-family: 'Special Elite', cursive;
     margin-bottom: 10px;
     text-shadow:  rgb(0, 0, 0) 1px -1px 1px ;
+    color: hsl(0, 5%, 100%);
 }
 
 .name{
@@ -61,6 +62,6 @@
 .rating {
     font-size: 15px;
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     text-shadow:  rgb(0, 0, 0) 1px -1px 1px ;
 }

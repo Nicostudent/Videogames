@@ -7,6 +7,8 @@ const {
 const { Videogame, Genre } = require('../db.js')
 
 
+
+
 const get_API_info = async () => {
     const apiGamesPageOne = (await axios(`https://api.rawg.io/api/games?key=${API_KEY}`)).data
     const apiGamesPageTwo = (await axios.get(apiGamesPageOne.next)).data;

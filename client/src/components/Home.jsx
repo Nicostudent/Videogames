@@ -29,7 +29,13 @@ function Home() {
   const currentVideogame = videogame.slice(
     indexOfFirstVideogame,
     indexOfLastVideogame
-  );
+   );
+
+  const handlePaginado = Math.ceil(videogame/videogamesPerPage) 
+if(currentPage !== 1 && currentPage > handlePaginado) {
+  setCurrentPage(handlePaginado)
+}
+
   const paginado = (pageNumbers) => {
     setCurrentPage(pageNumbers);
   };
@@ -47,9 +53,9 @@ function Home() {
     e.preventDefault(e);
     setCurrentPage(1);
     dispatch(filter_created(e.target.value));
-    setOrdenated(`ordenated ${e.target.value}`);
+    setOrdenated(`ORDENATED ${e.target.value}`);
   }
-
+  
   function handleOrdenated(e) {
     e.preventDefault(e);
     setCurrentPage(1);
@@ -66,10 +72,19 @@ function Home() {
     e.preventDefault(e);
     setCurrentPage(1);
     dispatch(filter_genre(e.target.value));
-    setOrdenated(`Genre ${e.target.value}`);
+    setOrdenated(`GENRE ${e.target.value}`);    
   }
+  // const handleOrdenatedgenre = currentVideogame.map(c => c.genres.includes(ordenated)).length === 0 
+  // ? <h1>"no hay videojuegos con ese genero"</h1> 
+  // : console.log(" toma tu genero")
+ // console.log(handleOrdenatedgenre)
+ const a = ordenated.includes("Genre") && currentVideogame.length ? console.log('true') : console.log('false')
+ 
 
-  console.log(currentVideogame);
+  console.log(a)
+  console.log(ordenated)
+//  console.log(currentVideogame)
+//  console.log(setOrdenated('Genre'))
 
   return (
     <div className={s.containerPage}>
@@ -89,11 +104,11 @@ function Home() {
         <Link className={s.link} to={"/create"}>
           Create!
         </Link>
-        <select onChange={(e) => handleFilterByGenre(e)}>
+        <select onChange={(e) => handleFilterByGenre(e) }>
+         
           <option hidden>Genres</option>
-          {!genrefromDb.length ?
-         console.log(genrefromDb) :
-          genrefromDb?.map((c) => {
+          <option value="all">All</option>          
+          {genrefromDb.length && genrefromDb?.map((c) => {
             return (
               <option key={c.id} value={c.name}>
                 {c.name}
@@ -103,7 +118,7 @@ function Home() {
         </select>
         <select onChange={(e) => handleFilterCreated(e)}>
           <option value="all">ALL</option>
-          <option value="created">CREATED</option>
+          <option value="created">CREATED</option>         
           <option value="api">API</option>
         </select>
         <button className={s.refresh} onClick={() => window.location.reload()}>Refresh</button>
@@ -117,12 +132,17 @@ function Home() {
       />
       <div className={s.gridContainer}>
         <div className={s.grid}>
-          {!currentVideogame.length ? (
+          { ordenated.includes("GENRE") && !currentVideogame.length ?
+           <h1 className={s.notFound}>'Sry, Genre not found'</h1> :
+           ordenated.includes("ORDENATED") && !currentVideogame.length ?
+            <h1 className={s.notFound}>'Need to <Link to={"/create"}>create</Link> a game first' </h1> :
+          !currentVideogame.length ? (
             <Loader />
-          ) : (
-            typeof currentVideogame === 'string' ? 
-            <h1 className={s.notFound}>"Name not found"</h1> :
-            currentVideogame?.map((c) => (
+          ) : (          
+            typeof currentVideogame == 'string' ? 
+            <h1 className={s.notFound}>"Name not found"</h1> : 
+                               
+            currentVideogame?.map((c) => (                              
               <Link key={c.id} to={`/videogames/${c.id}`}>
                 <Card
                   key={c.id}
@@ -130,9 +150,9 @@ function Home() {
                   name={c.name}
                   genre={c.genres}
                   rating={c.rating}
-                />
-              </Link>
-            ))
+                  />
+              </Link>          
+             ))
           )}
         </div>
       </div>

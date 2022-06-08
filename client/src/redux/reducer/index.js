@@ -36,6 +36,7 @@ function rootReducer(state = initialState, action) {
             const cretedFilter = action.payload === 'created' ?
                 fileredVideogames.filter(c => typeof c.id === "string") :
                 fileredVideogames.filter(c => typeof c.id === "number")
+          
 
             return {
                 ...state,
@@ -98,7 +99,7 @@ function rootReducer(state = initialState, action) {
                        
             return{
                 ...state,
-               videogames: axu
+               videogames:  action.payload === "all" ? allvideosGenre : axu
             }
         } 
         case SEARCH_BY_NAME:{

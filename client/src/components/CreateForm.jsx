@@ -56,17 +56,21 @@ export default function VideogameCreate() {
 }
 function handleSelect(e){
     e.preventDefault()
-    setInput({
-        ...input,
-        genres: [...input.genres, e.target.value]
+    if(!input.genres.includes(e.target.value)){
+        setInput({
+            ...input,
+            genres: [...input.genres, e.target.value]
         })
+        }
     }
     function handleSelectPlataforms(e){
         e.preventDefault()
+        if(!input.platforms.includes(e.target.value)){
         setInput({
-            ...input,
-            platforms: [...input.platforms, e.target.value]
+            ...input,        
+                platforms: [...input.platforms, e.target.value]                      
         })
+     }
     }
     function handleSubmit(e){
         e.preventDefault()
@@ -91,14 +95,16 @@ function handleSelect(e){
         dispatch(get_all_videogames());
     }, []);
     
+    
 
 const allPlatforms = vPlataforms.map((e)=> e.platforms);
 const platforms = [...new Set(allPlatforms.flat())].sort();
-console.log(platforms)
+console.log(input)
 return (
     <div className={s.container} >     
      <Link className={s.btn} to={'/Home'}> BACK </Link>
      <h1 className={s.title}>Create</h1>
+     {/* <button className={s.btnrefresh} onClick={(e) => handelForm(e)} >REFRESH</button> */}
      <form className={s.form} onSubmit={(e) => handleSubmit(e)} action="">
         <div className={s.formSection}>         
                 <div>
@@ -166,13 +172,15 @@ return (
                 </div>
                 <div  className={s.imgInput}>
                     <label>image:<br/></label>
-                    <input 
-                
+                    <input                
                     type="text"
                     value={input.background_image}
                     name = 'background_image'
                     onChange={(e) => handleChange(e)}
                     />
+                    {errors.background_image && (
+                        <p className={s.error}> {errors.background_image}</p>
+                    )}
                 </div>      
                 <br/>   
                 <select onChange={(e) => handleSelectPlataforms(e)} >
