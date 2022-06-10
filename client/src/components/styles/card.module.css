@@ -4,18 +4,20 @@
 .container{
    background-color:  rgb(36, 36, 36);;
     width: 199px;
-    height: 230px;
+    height: 250px;
     margin: 10px;    
     border-radius: 5px;
     display: grid;   
     font-family: 'Special Elite', cursive;
     border: 1px solid hsl(0, 5%, 78%);
 }
-
+.container:hover{
+    transition: 0.2s;
+    box-shadow: 0px 0px 5px hsl(0, 1%, 90%);
+}
 .padre{
     display: flex;
-    justify-content: center;
-  
+    justify-content: center;  
 }
 
 .mask{

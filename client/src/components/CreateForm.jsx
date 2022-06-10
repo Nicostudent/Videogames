@@ -18,7 +18,7 @@ function validate(input){
         errors.genres = "Need some genres"    
     }else if( !input.platforms){
         errors.platforms = "Add at least one Platforms pls"
-    }else if(!input.background_image || urlValid.test(input.background_image) == false ){
+    }else if(!input.background_image || urlValid.test(input.background_image) === false ){
         errors.background_image = "Pls add an valid extension (jpg, gif, png)"
     }
     return errors;
@@ -42,7 +42,7 @@ export default function VideogameCreate() {
     genres: [],
     platforms: [],
   });
-  //console.log(genreState.map(c => c.name))
+ 
   function handleChange (e){    
     setInput({
         ...input,
@@ -62,16 +62,32 @@ function handleSelect(e){
             genres: [...input.genres, e.target.value]
         })
         }
+        clearSelectedgenre();
     }
     function handleSelectPlataforms(e){
         e.preventDefault()
-        if(!input.platforms.includes(e.target.value)){
+        if(!input.platforms.includes(e.target.value)){           
         setInput({
             ...input,        
                 platforms: [...input.platforms, e.target.value]                      
-        })
-     }
+        })      
+     }   
+     clearSelected();     
     }
+    function clearSelected(){
+        let e =  document.getElementById('name').selectedOptions;
+    
+        for(let i = 0; i < e.length; i++){
+          e[i].selected = false;
+        }
+      }
+      function clearSelectedgenre(){
+        let e =  document.getElementById('genre').selectedOptions;
+    
+        for(let i = 0; i < e.length; i++){
+          e[i].selected = false;
+        }
+      }
     function handleSubmit(e){
         e.preventDefault()
         console.log(input)
@@ -95,16 +111,30 @@ function handleSelect(e){
         dispatch(get_all_videogames());
     }, []);
     
-    
+    function refresh(e){
+        e.preventDefault()
+        setInput({
+            name: "",
+            description: "",
+            background_image: "",
+            released: "",
+            rating: "",
+            genres: [],
+            platforms: "",
+        })
+    }
 
 const allPlatforms = vPlataforms.map((e)=> e.platforms);
 const platforms = [...new Set(allPlatforms.flat())].sort();
+if(platforms.length > 19){
+    platforms.pop()
+}
 console.log(input)
 return (
     <div className={s.container} >     
      <Link className={s.btn} to={'/Home'}> BACK </Link>
      <h1 className={s.title}>Create</h1>
-     {/* <button className={s.btnrefresh} onClick={(e) => handelForm(e)} >REFRESH</button> */}
+      <button className={s.btnrefresh} onClick={(e) => refresh(e)} >REFRESH</button> 
      <form className={s.form} onSubmit={(e) => handleSubmit(e)} action="">
         <div className={s.formSection}>         
                 <div>
@@ -122,16 +152,7 @@ return (
                     )}
                 </div>
                 <div  > 
-                    <label>Description :<br/></label>
-                    {/* <input 
-
-                    maxLength={250}
-                    value={input.description}
-                    name = 'description'
-                    onChange={(e) => handleChange(e)}
-                    className={s.inputDescription}
-                    required
-                    /> */}
+                    <label>Description :<br/></label>                   
                     <textarea className={s.DescriptionArea}
                      value={input.description}
                      required onChange={(e) => handleChange(e)}
@@ -183,7 +204,7 @@ return (
                     )}
                 </div>      
                 <br/>   
-                <select onChange={(e) => handleSelectPlataforms(e)} >
+                <select id='name' onChange={(e) => handleSelectPlataforms(e)} >
                 <option  hidden>platforms</option>
                 {platforms?.map((c) => {         
                 return (
@@ -194,7 +215,7 @@ return (
                         <p className={s.error}> {errors.platforms}</p>
                     )}
             </select>           
-                <select onChange={(e) => handleSelect(e)} >
+                <select id='genre' onChange={(e) => handleSelect(e)} >
                 <option  hidden>Genres</option>
                 {genreState?.map((c) => {         
                 return (
@@ -208,20 +229,18 @@ return (
                     )}
                 {console.log(input.genres.map(c => c + " ,"))}
        </div>
-      <span className={s.holder}></span>
+       <span className={s.holder}></span>
        <div className={s.creatin}>  
                  <img className={s.image} src={input.background_image} alt='No img found'/>
                  <ul><li>genres :{input.genres.map(c => c + " ,")}</li></ul>
-                <ul><li>platforms :{input.platforms.map(c => c + " ,")}</li></ul>    
+                <ul><li>platforms :{input.platforms && input.platforms.map(c => c + " ,")}</li></ul>    
           {
             input.name.length && input.description.length && input.platforms.length && input.genres.length ? 
             <button className={s.btnCreate} type="submit">Create GAME</button> : 
             <p className={s.error}> "Need to compleat the form in order to create" </p>  
            }     
-       </div>
-      
-     </form>
-        
+       </div>      
+     </form>        
     </div>
   );
 }

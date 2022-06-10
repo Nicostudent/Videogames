@@ -2,12 +2,11 @@ import React, { useEffect } from 'react'
 import { useDispatch,useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import s from './styles/detail.module.css'
-import {get_videgames_detail , reset_detail} from '../redux/actions'
+import { get_videgames_detail , reset_detail} from '../redux/actions'
 import Loader from './Loader'
 
-function Detail() {
-   
-   let {id} = useParams()
+function Detail() {   
+   let {id} = useParams()  
     const dispatch = useDispatch()
     const details = useSelector(state => state.gamesDetail)
     useEffect(() => {
@@ -15,6 +14,8 @@ function Detail() {
     return () => dispatch(reset_detail())   
     }, [dispatch , id])
     //const genresmap = details?.map(c => c.genres)
+  
+
    console.log(details)
     return (
         <div >
@@ -22,7 +23,7 @@ function Detail() {
             {   !details.name ? 
                     <Loader/> :              
                 <div className={s.container}> 
-                    <div className={s.sectionName}>
+                    <div className={s.sectionName}>                                           
                       <h1>{details.name}</h1>
                       <img src={details.img || details.background_image} alt={details.name} />
                       <p className={s.description}>Description :{details.description && details.description.replace(/<[^>]+>/g, '')}</p>

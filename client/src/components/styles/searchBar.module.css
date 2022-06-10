@@ -29,9 +29,14 @@
 }
 
 .imgSearch {
+    margin-top: 2px;
+    padding-top: 2px;
+    padding-right: 5px;
     width: 28px;
     height: 28px;
     top: 22px;
     position: absolute;   
     color:  hsl(0, 5%, 78%);
+    border-image: solid 10px  white ;
 }
+

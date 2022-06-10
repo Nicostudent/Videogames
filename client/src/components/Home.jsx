@@ -8,6 +8,7 @@ import {
   get_by_genre,
   filter_genre,
   order_rating,
+  reset_videogames,
 } from "../redux/actions";
 import Card from "./Card";
 import Paginado from "./Paginado";
@@ -31,9 +32,9 @@ function Home() {
     indexOfLastVideogame
    );
 
-  const handlePaginado = Math.ceil(videogame/videogamesPerPage) 
+  const handlePaginado = Math.ceil(videogame.length /videogamesPerPage) 
 if(currentPage !== 1 && currentPage > handlePaginado) {
-  setCurrentPage(handlePaginado)
+  setCurrentPage(1)
 }
 
   const paginado = (pageNumbers) => {
@@ -42,6 +43,7 @@ if(currentPage !== 1 && currentPage > handlePaginado) {
 
   useEffect(() => {
     dispatch(get_all_videogames());
+    return dispatch(reset_videogames())
   }, [dispatch]);
 
   useEffect(() => {
@@ -51,45 +53,49 @@ if(currentPage !== 1 && currentPage > handlePaginado) {
 
   function handleFilterCreated(e) {
     e.preventDefault(e);
-    setCurrentPage(1);
+    setCurrentPage(1);    
     dispatch(filter_created(e.target.value));
     setOrdenated(`ORDENATED ${e.target.value}`);
-  }
+      
+  } 
   
   function handleOrdenated(e) {
     e.preventDefault(e);
     setCurrentPage(1);
-    dispatch(order_name(e.target.value));
-    setOrdenated(`NAME ${e.target.value}`);
+    if(typeof currentVideogame !== 'string'){
+      dispatch(order_name(e.target.value));
+      setOrdenated(`NAME ${e.target.value}`);
+    }
   }
   function handleRating(e) {
     e.preventDefault(e);
-    setCurrentPage(1);
-    dispatch(order_rating(e.target.value));
-    setOrdenated(`RATING ${e.target.value}`);
+    setCurrentPage(1);  
+    if(typeof currentVideogame !== 'string'){
+      dispatch(order_rating(e.target.value));
+      setOrdenated(`RATING ${e.target.value}`);
+    } 
   }
   function handleFilterByGenre(e) {
     e.preventDefault(e);
     setCurrentPage(1);
     dispatch(filter_genre(e.target.value));
-    setOrdenated(`GENRE ${e.target.value}`);    
+    setOrdenated(`GENRE ${e.target.value}`);
+    clearSelected(); 
   }
-  // const handleOrdenatedgenre = currentVideogame.map(c => c.genres.includes(ordenated)).length === 0 
-  // ? <h1>"no hay videojuegos con ese genero"</h1> 
-  // : console.log(" toma tu genero")
- // console.log(handleOrdenatedgenre)
- const a = ordenated.includes("Genre") && currentVideogame.length ? console.log('true') : console.log('false')
- 
 
-  console.log(a)
-  console.log(ordenated)
-//  console.log(currentVideogame)
-//  console.log(setOrdenated('Genre'))
+  function clearSelected(){
+    let e =  document.getElementById('name').selectedOptions;
+
+    for(let i = 0; i < e.length; i++){
+      e[i].selected = false;
+    }
+  }
+
+ console.log(currentVideogame)
 
   return (
     <div className={s.containerPage}>
-      <div className={s.searchBar}>     
-       
+      <div className={s.searchBar}>      
         <SearchBar />
         <select onChange={(e) => handleOrdenated(e)}>
           <option hidden>Order</option>
@@ -104,11 +110,10 @@ if(currentPage !== 1 && currentPage > handlePaginado) {
         <Link className={s.link} to={"/create"}>
           Create!
         </Link>
-        <select onChange={(e) => handleFilterByGenre(e) }>
-         
+        <select id='name' onChange={(e) => handleFilterByGenre(e) }>         
           <option hidden>Genres</option>
           <option value="all">All</option>          
-          {genrefromDb.length && genrefromDb?.map((c) => {
+          {genrefromDb?.map((c) => {
             return (
               <option key={c.id} value={c.name}>
                 {c.name}
@@ -140,8 +145,7 @@ if(currentPage !== 1 && currentPage > handlePaginado) {
             <Loader />
           ) : (          
             typeof currentVideogame == 'string' ? 
-            <h1 className={s.notFound}>"Name not found"</h1> : 
-                               
+            <h1 className={s.notFound}>"Name not found"</h1> :                                
             currentVideogame?.map((c) => (                              
               <Link key={c.id} to={`/videogames/${c.id}`}>
                 <Card

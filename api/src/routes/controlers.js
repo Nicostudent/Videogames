@@ -176,10 +176,10 @@ const getGenres =  async (req, res) => {
 /*- [ ] __POST /videogame__:
   - Recibe los datos recolectados desde el formulario controlado de la ruta de creación de videojuego por body
   - Crea un videojuego en la base de datos */
-  const postGame = async (req, res) => {
+  const postGame = async (req, res, next) => {
   
     const { name, description, released, rating, platforms, background_image, genres } = req.body;
-    if( !name || !description || !platforms ) res.status(400).json({msg:"Missing data"});
+    
     try {
         const createdGame = await Videogame.create({
             name,
@@ -188,62 +188,38 @@ const getGenres =  async (req, res) => {
             rating,
             platforms,
             background_image         
-        });
-        
+        });        
         const searchGenre = await Genre.findAll({
             where: {
               name: genres,
             },
           });
-
-        createdGame.addGenre(searchGenre);
-               
-        res.status(200).send({ message: "Successfully created" });
+        createdGame.addGenre(searchGenre);               
+        res.status(200).send("created" );
       } catch (error) {
         next(error)
       } 
     };
-
-const deleteVideogame =  async (req, res, next) => {
-    try {
-        const { id } = req.params
-        if (id) {
-            Videogame.destroy({
-                where: {
-                    id: id
-                }
-            })
-            res.json('your Videogame was destroyed')
-        }
-
-    } catch (error) {
-        next(error)
+    
+    module.exports ={
+        get_All_VideoGames,
+        get_DB_Info,
+        get_API_info,
+        getGenres,
+        getGames,
+        getVideogamesId,
+        postGame,         
     }
-}
 
-const updateVideogame = async (req, res, next) => {
-    const { id } = req.params
-    try {
-        if (id) {
-            const { name } = req.body
-            await Videogame.update({ name }, { where: { id: id } })
-            res.send("You get the new Name!")
-        } else {
-            res.send("you can't get a new name")
-        }
-    } catch (error) {
-        next(error)
-    }
-}
 
-module.exports ={
-    get_All_VideoGames,
-    get_DB_Info,
-    get_API_info,
-    getGenres,
-    getGames,
-    getVideogamesId,
-    postGame,
-    deleteVideogame,
-    updateVideogame
-}
+
+
+
+
+
+
+
+
+
+
+

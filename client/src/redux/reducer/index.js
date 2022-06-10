@@ -1,4 +1,4 @@
-import { GET_ALL_VIDEOGAMES, GET_BY_GENRE, FILTER_CREATED, ORDER_BY_NAME, ORDER_BY_RATING, FILTER_BY_GENRE, GET_BY_DETAIL, SEARCH_BY_NAME, CREATE_VIDEOGAME, RESET_DETAIL } from '../actions'
+import { GET_ALL_VIDEOGAMES, GET_BY_GENRE, FILTER_CREATED, ORDER_BY_NAME, ORDER_BY_RATING, FILTER_BY_GENRE, GET_BY_DETAIL, SEARCH_BY_NAME, CREATE_VIDEOGAME, RESET_DETAIL, RESET_VIDEOGAMES } from '../actions'
 
 
 const initialState = {
@@ -118,7 +118,14 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 gamesDetail : action.payload
             }
+        }  
+        case RESET_VIDEOGAMES:{
+            return{
+                ...state,
+                videogames: action.payload
+            }
         }
+        
         default: return state
     }
 }

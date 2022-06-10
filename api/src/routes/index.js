@@ -12,9 +12,8 @@ const { getVideogames,
         getGenres,
         getGames,
         getVideogamesId,
-        postGame,
-        deleteVideogame,
-        updateVideogame} = require('./controlers')
+        postGame,        
+    } = require('./controlers')
 
 
 
@@ -23,8 +22,8 @@ router.get('/videogames', getGames)
 router.get('/genres',getGenres)
 router.get('/videogames/:idVideogame', getVideogamesId )
 router.post('/videogames', postGame)
-router.delete('/delete/:id', deleteVideogame)
-router.put('/update/:id', updateVideogame)
+
+
 
 
 module.exports = router;

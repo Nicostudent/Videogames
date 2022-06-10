@@ -22,8 +22,23 @@
     margin-left: 50%;
     margin-bottom: 10px;
     background-color: rgb(199, 10, 10);
-    border-radius: 5px;
-   
+    border-radius: 5px;   
+    font-family: 'Baloo 2', sans-serif;
+}
+.btnDelete{
+    display: inline-block;
+    width: 70px;
+    height: 30px;
+    padding: 5px 10px;   
+    text-decoration: none;
+    text-align: center;    
+    color: hsl(0, 5%, 78%);
+    margin-top: 5px;
+    margin-left: 50%;
+    margin-bottom: 10px;
+    background-color: rgb(199, 10, 10);
+    border-radius: 5px;   
+    font-family: 'Baloo 2', sans-serif;
 }
 .sectionName{
     display: flex;

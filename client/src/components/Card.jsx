@@ -14,7 +14,7 @@ function Card({name, img  , genre, rating}) {
                 <div className={s.text}>
             <h3 className={s.name} >{name}</h3>
             <h2 className={s.genres}>{ typeof genre[0] === 'object' ? genre.map(c => c.name).join(' | ') : genre.join(' | ') }</h2>
-            <h4 className={s.rating}>Rating : {rating}</h4>
+            <h4 className={s.rating}>Rating : {rating }</h4>      
                     
                 </div>
         </div>

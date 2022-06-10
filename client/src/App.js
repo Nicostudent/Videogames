@@ -9,18 +9,10 @@ function App() {
   return (
     <div className='app'>
     <Switch>
-      <Route exact path={'/'} >
-    <Landing/>
-      </Route>
-      <Route path={'/Home'}>
-        <Home/>
-      </Route>  
-      <Route path={`/videogames/:id`}>
-        <Detail/>
-      </Route>  
-      <Route path={'/create'}>
-        <CreateForm/>
-      </Route>  
+      <Route exact path={'/'}> <Landing/> </Route>
+      <Route path={'/Home'}> <Home/> </Route>  
+      <Route path={`/videogames/:id`}> <Detail/></Route>
+       <Route path={'/create'}> <CreateForm/> </Route>  
     </Switch>
     </div>
   );

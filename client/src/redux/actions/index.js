@@ -9,6 +9,7 @@ export const SEARCH_BY_NAME = 'SEARCH_BY_NAME'
 export const CREATE_VIDEOGAME = 'CREATE_VIDEOGAME'
 export const ORDER_BY_RATING = 'ORDER_BY_RATING'
 export const RESET_DETAIL = 'RESET_DETAIL'
+export const RESET_VIDEOGAMES = 'RESET_VIDEOGAMES'
 
 export function get_all_videogames (){
     return async function (dispatch){
@@ -68,6 +69,7 @@ export function get_videgames_detail (id){
     }
 }
 
+
 export function search_by_name (name){
     return async function (dispatch){
          await axios.get(`/videogames?name=${name}`)
@@ -79,7 +81,7 @@ export function search_by_name (name){
 }
 
 export function create_videogame(payload){
-    return async function(dispatch){
+    return async function(){
         const res = axios.post('/videogames', payload)
         return res
     }
@@ -90,3 +92,9 @@ export function reset_detail(){
         type: RESET_DETAIL, payload:{}
     }
 }
+export function reset_videogames(){
+    return{
+        type: RESET_VIDEOGAMES, payload:[]
+    }
+}
+
