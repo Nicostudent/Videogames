@@ -178,8 +178,7 @@ const getGenres =  async (req, res) => {
   - Crea un videojuego en la base de datos */
   const postGame = async (req, res, next) => {
   
-    const { name, description, released, rating, platforms, background_image, genres } = req.body;
-    
+    const { name, description, released, rating, platforms, background_image, genres } = req.body;    
     try {
         const createdGame = await Videogame.create({
             name,
@@ -200,6 +199,21 @@ const getGenres =  async (req, res) => {
         next(error)
       } 
     };
+
+    const createNewGenre = async(req, res, next) =>{
+            const {g} = req.body
+        try {
+            if(g){
+              const b =  await Genre.create({
+                     name : g                   
+                })
+                res.status(201).send(b)
+            }
+           
+        } catch (error) {
+            next(error)
+        }
+    }
     
     module.exports ={
         get_All_VideoGames,
@@ -208,7 +222,8 @@ const getGenres =  async (req, res) => {
         getGenres,
         getGames,
         getVideogamesId,
-        postGame,         
+        postGame, 
+        createNewGenre,        
     }
 
 

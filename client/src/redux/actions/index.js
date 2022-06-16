@@ -23,12 +23,15 @@ export function get_all_videogames (){
 
 export function get_by_genre (){
     return async function (dispatch){
-         await axios.get('/genres')
+     const res =   await axios.get('/genres') 
+        return dispatch({
+            type:GET_BY_GENRE , payload: res.data
+        })  
         
-        .then(res => dispatch({
-            type: GET_BY_GENRE, payload: res.data
-        }))
-    }
+    //     .then(res => dispatch({
+    //         type: GET_BY_GENRE, payload: res.data
+    //     }))
+     }
 }
 
 export function filter_created (payload){

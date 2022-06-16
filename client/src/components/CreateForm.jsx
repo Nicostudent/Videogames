@@ -123,6 +123,12 @@ function handleSelect(e){
             platforms: "",
         })
     }
+    function handleDelete(c){
+       setInput({
+        ...input,
+           genres: input.genres.filter(f => f !== c)
+       })
+    }
 
 const allPlatforms = vPlataforms.map((e)=> e.platforms);
 const platforms = [...new Set(allPlatforms.flat())].sort();
@@ -180,6 +186,7 @@ return (
                     <label>rating:<br/></label>
                     <input 
                     type="number"
+                    step="1"
                     value={input.rating}
                     min="1" 
                     max="5"
@@ -230,10 +237,27 @@ return (
                 {console.log(input.genres.map(c => c + " ,"))}
        </div>
        <span className={s.holder}></span>
-       <div className={s.creatin}>  
-                 <img className={s.image} src={input.background_image} alt='No img found'/>
-                 <ul><li>genres :{input.genres.map(c => c + " ,")}</li></ul>
-                <ul><li>platforms :{input.platforms && input.platforms.map(c => c + " ,")}</li></ul>    
+       <div className={s.creatin}> 
+       {
+            input.background_image ?
+            <img className={s.image} src={input.background_image} alt='No img found'/> :
+            <></>
+       } 
+       {
+            input.genres.length ? 
+            <ul><li>genres :{input.genres.map(c =>{
+                return  <div>
+                     <label>{ c + " ,"}</label>
+                    <button type='button' onClick={() => handleDelete(c)} >x</button>
+                 </div>                            
+                     })}</li></ul> :
+                     <></>
+                    }
+                    {
+                        input.platforms.length ?
+                     <ul><li>platforms :{input.platforms && input.platforms.map(c => c + " ,")}</li></ul>    :
+                     <></>
+                    }
           {
             input.name.length && input.description.length && input.platforms.length && input.genres.length ? 
             <button className={s.btnCreate} type="submit">Create GAME</button> : 

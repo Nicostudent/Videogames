@@ -12,7 +12,8 @@ const { getVideogames,
         getGenres,
         getGames,
         getVideogamesId,
-        postGame,        
+        postGame,     
+        createNewGenre,   
     } = require('./controlers')
 
 
@@ -22,6 +23,8 @@ router.get('/videogames', getGames)
 router.get('/genres',getGenres)
 router.get('/videogames/:idVideogame', getVideogamesId )
 router.post('/videogames', postGame)
+router.post('/addgenre', createNewGenre)
+
 
 
 
